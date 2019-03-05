@@ -20,8 +20,8 @@ public class Device implements Serializable {
 
     }
 
-    @OneToMany
-    private List<Category> categories; 
+    @ManyToOne
+    private Category category;
 
     public Device(String name, String description, Integer quantity, Double price) {
         this.name = name;
