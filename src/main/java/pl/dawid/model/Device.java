@@ -2,6 +2,7 @@ package pl.dawid.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Device implements Serializable {
@@ -19,7 +20,8 @@ public class Device implements Serializable {
 
     }
 
-    private Category category;
+    @OneToMany
+    private List<Category> categories; 
 
     public Device(String name, String description, Integer quantity, Double price) {
         this.name = name;
