@@ -19,6 +19,8 @@ public class Device implements Serializable {
 
     }
 
+    private Category category;
+
     public Device(String name, String description, Integer quantity, Double price) {
         this.name = name;
         this.description = description;
