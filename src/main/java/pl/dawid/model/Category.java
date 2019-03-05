@@ -16,8 +16,8 @@ public class Category implements Serializable {
     @Column(length = 512)
     private String description;
 
-    @OneToMany
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "category")
+    //one way @JoinColumn(name = "category_id", referencedColumnName = "id")
     private List<Device> devices;
 
     public Category() {

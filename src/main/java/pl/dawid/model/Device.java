@@ -21,6 +21,7 @@ public class Device implements Serializable {
     }
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Device(String name, String description, Integer quantity, Double price) {
@@ -77,7 +78,8 @@ public class Device implements Serializable {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", quantity=" + quantity +
-                ", price=" + price +
+                ", price=" + price + ", " +
+                category.getName() +
                 '}';
     }
 }
