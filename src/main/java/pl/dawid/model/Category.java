@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Table(name = "category")
 public class Category implements Serializable {
 
     @Id
@@ -59,6 +60,8 @@ public class Category implements Serializable {
     public void setDevices(List<Device> devices) {
         this.devices = devices;
     }
+
+
 
     @Override
     public String toString() {

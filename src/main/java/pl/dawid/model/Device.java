@@ -5,10 +5,12 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Table(name = "device")
 public class Device implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     private String name;
@@ -21,8 +23,15 @@ public class Device implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "id_category")
     private Category category;
+
+    @ManyToMany
+    @JoinTable(name = "device_customers",
+    joinColumns = {@JoinColumn(name = "device_id", referencedColumnName = "id")},
+    inverseJoinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id_cus")})
+    private List<Customer> customers;
+
 
     public Device(String name, String description, Integer quantity, Double price) {
         this.name = name;
@@ -69,6 +78,22 @@ public class Device implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
     }
 
     @Override
