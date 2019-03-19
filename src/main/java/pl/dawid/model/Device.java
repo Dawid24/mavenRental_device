@@ -2,7 +2,9 @@ package pl.dawid.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "device")
@@ -30,7 +32,7 @@ public class Device implements Serializable {
     @JoinTable(name = "device_customers",
     joinColumns = {@JoinColumn(name = "device_id", referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id_cus")})
-    private List<Customer> customers;
+    private List<Customer> customers = new ArrayList<>();
 
 
     public Device(String name, String description, Integer quantity, Double price) {
@@ -96,6 +98,11 @@ public class Device implements Serializable {
         this.customers = customers;
     }
 
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
+        customer.getDevices().add(this);
+    }
+
     @Override
     public String toString() {
         return "Device{" +
@@ -106,5 +113,24 @@ public class Device implements Serializable {
                 ", price=" + price + ", " +
                 category.getName() +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, quantity, price, category, customers);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Device device = (Device) obj;
+        return quantity == device.quantity &&
+                Double.compare(device.price, price) == 0 &&
+                Objects.equals(id, device.id) &&
+                Objects.equals(name, device.name) &&
+                Objects.equals(description, device.description) &&
+                Objects.equals(category, device.category) &&
+                Objects.equals(customers, device.customers);
     }
 }

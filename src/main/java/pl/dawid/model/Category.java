@@ -2,7 +2,9 @@ package pl.dawid.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "category")
@@ -19,7 +21,7 @@ public class Category implements Serializable {
 
     @OneToMany(mappedBy = "category")
     //one way @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private List<Device> devices;
+    private Set<Device> devices = new HashSet<>();
 
     public Category() {
 
@@ -53,15 +55,13 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-    public List<Device> getDevices() {
+    public Set<Device> getDevices() {
         return devices;
     }
 
-    public void setDevices(List<Device> devices) {
+    public void setDevices(Set<Device> devices) {
         this.devices = devices;
     }
-
-
 
     @Override
     public String toString() {

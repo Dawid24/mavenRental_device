@@ -2,6 +2,8 @@ package pl.dawid.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -19,6 +21,9 @@ public class Customer implements Serializable {
     public Customer() {
 
     }
+
+    @ManyToMany(mappedBy = "customers")
+    private List<Device> devices = new ArrayList<>();
 
     public Customer(String name, String surname, String pesel) {
         this.name = name;
@@ -56,5 +61,24 @@ public class Customer implements Serializable {
 
     public void setPesel(String pesel) {
         this.pesel = pesel;
+    }
+
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", pesel='" + pesel + '\'' +
+                ", devices number=" + devices.size() +
+                '}';
     }
 }
